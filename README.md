@@ -1,12 +1,25 @@
-# React + Vite
+## SpiceBox - Recipe App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+SpiceBox is a modern recipe application built with **React + Vite** and styled using **Tailwind CSS**.  
+It allows users to search, browse, and view recipes in a clean, minimal, and mobile-friendly interface.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Features
+- 🔍 Search recipes by name or ingredient  
+- 🍴 Browse recipes by categories (Combos, Sliders, Classics, etc.)  
+- ⭐ Save favorite recipes for quick access  
+- 📖 View detailed recipe information (ingredients, instructions, ratings)  
+- 📱 Responsive and modern UI design  
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Tech Stack
+- **React (Vite)** - frontend framework  
+- **Tailwind CSS** - styling and responsive design  
+- **Edamam / Spoonacular API** - recipe data (to be integrated)  
+- **GitHub Pages / Netlify / Vercel** - deployment  
+
+---
+
+## 📂 Project Structure
