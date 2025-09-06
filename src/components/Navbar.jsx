@@ -1,14 +1,15 @@
-function Navbar() {
+import { Link } from "react-router-dom";
+
+const Navbar = () => {
   return (
-    <header className="bg-white shadow-md p-4">
-      <div className="container mx-auto flex items-center justify-between">
-        <h1 className="text-2xl font-bold text-red-500">SpiceBox</h1>
-        <nav className="space-x-4">
-          <a href="/" className="text-gray-700 hover:text-red-500">Home</a>
-        </nav>
+    <nav className="flex justify-between items-center p-4 bg-teal-600 text-white">
+      <h1 className="text-2xl font-bold">SpiceBox</h1>
+      <div className="space-x-4">
+        <Link to="/">Home</Link>
+        <Link to="/discover">Discover</Link>
       </div>
-    </header>
+    </nav>
   );
-}
+};
 
 export default Navbar;
