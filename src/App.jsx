@@ -3,6 +3,7 @@ import Home from "./pages/Home";
 import RecipeDetail from "./pages/RecipeDetail";
 import Navbar from "./components/Navbar";
 import Discover from "./pages/Discover";
+import Footer from "./components/Footer";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
             <Route path="/discover" element={<Discover />} />
           </Routes>
         </main>
+        <Footer />
       </div>
     </Router>
   );
