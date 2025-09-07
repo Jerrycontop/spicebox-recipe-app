@@ -1,37 +1,27 @@
-// src/pages/AboutPage.jsx
-export default function AboutPage() {
+// src/pages/About.jsx
+export default function About() {
   return (
-    <div className="max-w-6xl mx-auto px-4 py-12">
-      <h1 className="text-4xl font-bold mb-6 text-center text-gray-800">
-        About <span className="text-orange-500">SpiceBox</span>
-      </h1>
-      <p className="text-lg text-gray-600 leading-relaxed mb-8 text-center">
-        SpiceBox is your go-to recipe discovery app 🍲. Our mission is to inspire home cooks 
-        and food lovers with delicious recipes from around the world. Whether you’re 
-        trying something new or perfecting your favorite dish, we’ve got you covered.
-      </p>
-
-      <div className="grid md:grid-cols-3 gap-8 text-center">
-        <div className="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition">
-          <h3 className="text-xl font-semibold mb-2 text-orange-500">🌍 Global Flavors</h3>
-          <p className="text-gray-600">
-            Explore recipes inspired by diverse cultures and cuisines worldwide.
-          </p>
-        </div>
-
-        <div className="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition">
-          <h3 className="text-xl font-semibold mb-2 text-orange-500">👩‍🍳 For Everyone</h3>
-          <p className="text-gray-600">
-            From beginners to pros, our easy-to-follow recipes suit every cooking level.
-          </p>
-        </div>
-
-        <div className="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition">
-          <h3 className="text-xl font-semibold mb-2 text-orange-500">💡 Inspiration</h3>
-          <p className="text-gray-600">
-            Discover new ideas daily and keep your cooking fresh and exciting.
-          </p>
-        </div>
+    <div className="min-h-screen bg-gray-50 flex items-center justify-center px-6 py-12">
+      <div className="max-w-4xl bg-white rounded-2xl shadow-lg p-10">
+        <h1 className="text-3xl font-bold text-orange-500 mb-6 text-center">
+          About SpiceBox
+        </h1>
+        <p className="text-gray-700 leading-relaxed mb-4 text-lg">
+          Welcome to <span className="font-semibold text-orange-500">SpiceBox</span> —
+          your companion for discovering, saving, and cooking delicious recipes
+          from around the world. Whether you're a seasoned chef or just starting
+          your cooking journey, SpiceBox makes it easy to explore meals and find
+          inspiration.
+        </p>
+        <p className="text-gray-700 leading-relaxed mb-4 text-lg">
+          Our goal is simple: bring the joy of cooking closer to everyone. From
+          traditional dishes to modern flavors, SpiceBox helps you connect with
+          recipes that suit your taste and lifestyle.
+        </p>
+        <p className="text-gray-700 leading-relaxed text-lg">
+          Thank you for being part of our journey. Let’s cook something amazing
+          together!
+        </p>
       </div>
     </div>
   );

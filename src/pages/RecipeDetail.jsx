@@ -1,102 +1,107 @@
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { useState, useEffect } from "react";
 
-const RecipeDetail = () => {
+export default function RecipeDetail() {
   const { id } = useParams();
   const [recipe, setRecipe] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [portion, setPortion] = useState(1);
+  const [spicyLevel, setSpicyLevel] = useState(1); // 1 = Mild, 5 = Hot
 
   useEffect(() => {
-    fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`)
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.meals) setRecipe(data.meals[0]);
-      });
+    async function fetchRecipe() {
+      try {
+        const res = await fetch(
+          `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`
+        );
+        const data = await res.json();
+        setRecipe(data.meals[0]);
+      } catch (err) {
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
+    }
+    fetchRecipe();
   }, [id]);
 
-  if (!recipe) return <p className="text-center mt-10 text-gray-600">Loading recipe...</p>;
-
-  // Collect ingredients + measures into a clean array
-  const ingredients = Array.from({ length: 20 })
-    .map((_, i) => {
-      const ingredient = recipe[`strIngredient${i + 1}`];
-      const measure = recipe[`strMeasure${i + 1}`];
-      return ingredient ? `${ingredient} - ${measure}` : null;
-    })
-    .filter(Boolean);
-
-  // Split instructions into paragraphs
-  const instructions = recipe.strInstructions
-    .split(/\r?\n/)
-    .filter((line) => line.trim() !== "");
+  if (loading) return <p className="text-center p-6">Loading recipe...</p>;
+  if (!recipe) return <p className="text-center p-6">Recipe not found.</p>;
 
   return (
-    <div className="max-w-6xl mx-auto p-6">
-      {/* Title */}
-      <h1 className="text-4xl font-bold mb-4 text-gray-900 text-center lg:text-left">
-        {recipe.strMeal}
-      </h1>
-
-      {/* Tags */}
-      <div className="flex flex-wrap justify-center lg:justify-start gap-3 mb-10">
-        <span className="bg-green-100 text-green-700 px-4 py-1 rounded-full text-sm font-medium">
-          {recipe.strCategory}
-        </span>
-        <span className="bg-blue-100 text-blue-700 px-4 py-1 rounded-full text-sm font-medium">
-          {recipe.strArea}
-        </span>
+    <div className="max-w-2xl mx-auto bg-white p-6 rounded-xl shadow-md">
+      {/* Image + Title */}
+      <div className="flex flex-col items-center">
+        <img
+          src={recipe.strMealThumb}
+          alt={recipe.strMeal}
+          className="rounded-xl w-64 h-48 object-cover mb-4"
+        />
+        <h1 className="text-2xl font-bold mb-2 text-center">
+          {recipe.strMeal}
+        </h1>
       </div>
 
-      {/* Two-column layout */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
-        {/* Left: Image */}
+      {/* Rating + Time */}
+      <div className="flex items-center justify-center text-gray-600 mb-3">
+        <span className="mr-2">⭐ 4.9</span>
+        <span className="ml-2">⏱ 26 mins</span>
+      </div>
+
+      {/* Description */}
+      <p className="text-gray-700 text-center mb-6">
+        {recipe.strInstructions.slice(0, 150)}...
+      </p>
+
+      {/* Spicy + Portion */}
+      <div className="flex items-center justify-between mb-6">
+        {/* Spicy Slider */}
         <div>
-          <img
-            src={recipe.strMealThumb}
-            alt={recipe.strMeal}
-            className="w-full h-96 object-cover rounded-2xl shadow-lg"
+          <p className="font-semibold mb-1">Spicy</p>
+          <input
+            type="range"
+            min="1"
+            max="5"
+            value={spicyLevel}
+            onChange={(e) => setSpicyLevel(e.target.value)}
+            className="w-32 accent-red-500"
           />
+          <div className="flex justify-between text-xs mt-1">
+            <span className="text-green-600">Mild</span>
+            <span className="text-red-600">Hot</span>
+          </div>
         </div>
 
-        {/* Right: Details */}
-        <div className="space-y-8">
-          {/* Ingredients */}
-          <div className="bg-gray-50 rounded-xl p-6 shadow-sm">
-            <h2 className="text-2xl font-semibold mb-4 text-gray-900">🧾 Ingredients</h2>
-            <ul className="list-disc list-inside text-gray-700 space-y-1">
-              {ingredients.map((ing, idx) => (
-                <li key={idx}>{ing}</li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Instructions */}
-          <div className="bg-gray-50 rounded-xl p-6 shadow-sm">
-            <h2 className="text-2xl font-semibold mb-4 text-gray-900">👨‍🍳 Instructions</h2>
-            <div className="text-gray-700 leading-relaxed space-y-4">
-              {instructions.map((line, idx) => (
-                <p key={idx}>{line}</p>
-              ))}
-            </div>
+        {/* Portion Counter */}
+        <div>
+          <p className="font-semibold mb-1">Portion</p>
+          <div className="flex items-center gap-2">
+            <button
+              onClick={() => setPortion((p) => Math.max(1, p - 1))}
+              className="px-3 py-1 bg-gray-200 rounded-lg text-lg"
+            >
+              −
+            </button>
+            <span className="font-semibold text-lg">{portion}</span>
+            <button
+              onClick={() => setPortion((p) => p + 1)}
+              className="px-3 py-1 bg-gray-200 rounded-lg text-lg"
+            >
+              +
+            </button>
           </div>
         </div>
       </div>
 
-      {/* YouTube Video */}
-      {recipe.strYoutube && (
-        <div className="mt-14">
-          <h2 className="text-2xl font-semibold mb-5 text-gray-900">🎥 Watch Tutorial</h2>
-          <div className="aspect-w-16 aspect-h-9">
-            <iframe
-              className="w-full h-[500px] rounded-2xl shadow-md"
-              src={`https://www.youtube.com/embed/${recipe.strYoutube.split("v=")[1]}`}
-              title="Recipe Video"
-              allowFullScreen
-            ></iframe>
-          </div>
-        </div>
-      )}
+      {/* Price + Order Button */}
+      <div className="flex justify-between items-center mt-6">
+        <button className="bg-red-500 text-white px-4 py-2 rounded-xl font-bold">
+          $ 8.24
+        </button>
+        <button className="bg-black text-white px-6 py-3 rounded-xl font-bold">
+          ORDER NOW
+        </button>
+      </div>
     </div>
   );
-};
-
-export default RecipeDetail;
+}
