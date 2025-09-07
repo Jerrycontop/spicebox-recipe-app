@@ -4,6 +4,7 @@ import RecipeDetail from "./pages/RecipeDetail";
 import Navbar from "./components/Navbar";
 import Discover from "./pages/Discover";
 import Footer from "./components/Footer";
+import AboutPage from "./pages/AboutPage";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/recipe/:id" element={<RecipeDetail />} />
             <Route path="/discover" element={<Discover />} />
+            <Route path="/about" element={<AboutPage />} />
           </Routes>
         </main>
         <Footer />
