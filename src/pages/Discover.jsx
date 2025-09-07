@@ -2,76 +2,63 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 const Discover = () => {
+  const [search, setSearch] = useState("");
   const [recipes, setRecipes] = useState([]);
-  const [query, setQuery] = useState("chicken"); // default search
-  const [loading, setLoading] = useState(false);
 
-  // Fetch recipes whenever query changes
   useEffect(() => {
-    const fetchRecipes = async () => {
-      setLoading(true);
-      try {
-        const res = await fetch(
-          `https://www.themealdb.com/api/json/v1/1/search.php?s=${query}`
-        );
-        const data = await res.json();
-        setRecipes(data.meals || []);
-      } catch (err) {
-        console.error("Error fetching recipes:", err);
-      } finally {
-        setLoading(false);
-      }
-    };
+    fetch("https://www.themealdb.com/api/json/v1/1/search.php?s=")
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.meals) setRecipes(data.meals);
+      });
+  }, []);
 
-    fetchRecipes();
-  }, [query]);
+  const handleSearch = (e) => {
+    e.preventDefault();
+    fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${search}`)
+      .then((res) => res.json())
+      .then((data) => {
+        setRecipes(data.meals || []);
+      });
+  };
 
   return (
     <div className="p-6">
-      {/* Header */}
-      <h1 className="text-2xl font-bold mb-4">Discover Recipes 🍴</h1>
+      {/* Title */}
+      <h1 className="text-3xl font-bold mb-6">Discover Recipes 🍲</h1>
 
       {/* Search Bar */}
-<div className="mb-8 flex justify-center">
-  <div className="flex w-full max-w-md shadow-md rounded-full overflow-hidden border border-gray-200">
-    <input
-      type="text"
-      placeholder="🔍 Search for a recipe..."
-      value={query}
-      onChange={(e) => setQuery(e.target.value)}
-      className="flex-grow px-4 py-2 text-gray-700 focus:outline-none"
-    />
-    <button
-      onClick={() => setQuery(query)}
-      className="bg-blue-500 text-white px-6 font-medium hover:bg-blue-600 transition"
-    >
-      Search
-    </button>
-  </div>
-</div>
-
-
-      {/* Loading State */}
-      {loading && <p className="text-gray-500">Loading recipes...</p>}
+      <form onSubmit={handleSearch} className="flex items-center gap-2 mb-8">
+        <input
+          type="text"
+          placeholder="Search for a recipe..."
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          className="flex-1 border rounded-xl px-4 py-2 focus:ring-2 focus:ring-orange-400 outline-none"
+        />
+        <button
+          type="submit"
+          className="bg-orange-500 text-white px-6 py-2 rounded-xl hover:bg-orange-600 transition"
+        >
+          Search
+        </button>
+      </form>
 
       {/* Recipe Grid */}
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-        {recipes.length > 0 ? (
-          recipes.map((recipe) => (
-            <Link to={`/recipe/${recipe.idMeal}`} key={recipe.idMeal}>
-              <div className="bg-white rounded-xl shadow-md p-4 hover:shadow-lg transition cursor-pointer">
-                <img
-                  src={recipe.strMealThumb}
-                  alt={recipe.strMeal}
-                  className="rounded-lg mb-2"
-                />
-                <h3 className="text-lg font-semibold">{recipe.strMeal}</h3>
-              </div>
-            </Link>
-          ))
-        ) : (
-          <p className="text-gray-500 col-span-full">No recipes found.</p>
-        )}
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        {recipes.map((recipe) => (
+          <Link to={`/recipe/${recipe.idMeal}`} key={recipe.idMeal}>
+            <div className="bg-white rounded-2xl shadow-md p-4 hover:shadow-xl transition-transform transform hover:scale-105 cursor-pointer">
+              <img
+                src={recipe.strMealThumb}
+                alt={recipe.strMeal}
+                className="rounded-xl mb-3 w-full h-48 object-cover"
+              />
+              <h3 className="text-lg font-bold text-gray-800">{recipe.strMeal}</h3>
+              <p className="text-sm text-gray-500 mt-1">Tap to view details</p>
+            </div>
+          </Link>
+        ))}
       </div>
     </div>
   );
