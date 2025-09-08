@@ -1,10 +1,57 @@
-function Home() {
+// src/pages/Home.jsx
+import React from "react";
+
+// Sample menu items
+const menuItems = [
+  {
+    id: 1,
+    name: "Spaghetti Carbonara",
+    image: "https://www.themealdb.com/images/media/meals/llcbn01574260722.jpg",
+    price: 12.99,
+  },
+  {
+    id: 2,
+    name: "Chicken Biryani",
+    image: "https://www.themealdb.com/images/media/meals/xrttsx1487339558.jpg",
+    price: 10.5,
+  },
+  {
+    id: 3,
+    name: "Beef Wellington",
+    image: "https://www.themealdb.com/images/media/meals/vvpprx1487325699.jpg",
+    price: 15.75,
+  },
+];
+
+const Home = ({ addToOrders }) => {
   return (
-    <div>
-      <h2 className="text-xl font-semibold mb-4">Discover Recipes 🍲</h2>
-      <p className="text-gray-600">Search and explore delicious meals.</p>
+    <div className="container mx-auto p-6">
+      <h2 className="text-3xl font-bold mb-6">Menu</h2>
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+        {menuItems.map((item) => (
+          <div
+            key={item.id}
+            className="bg-white shadow-md rounded-xl p-4 flex flex-col items-center"
+          >
+            <img
+              src={item.image}
+              alt={item.name}
+              className="w-40 h-40 object-cover rounded-lg mb-4"
+            />
+            <h3 className="text-lg font-semibold">{item.name}</h3>
+            <p className="text-gray-600 mb-2">${item.price.toFixed(2)}</p>
+            <button
+              onClick={() => addToOrders(item)}
+              className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg shadow"
+            >
+              Order Now
+            </button>
+          </div>
+        ))}
+      </div>
     </div>
   );
-}
+};
 
 export default Home;

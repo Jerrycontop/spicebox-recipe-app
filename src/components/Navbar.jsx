@@ -1,31 +1,34 @@
-// src/components/Navbar.jsx
-import { Link, NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 
-export default function Navbar() {
-  const linkClasses = ({ isActive }) =>
-    isActive
-      ? "text-orange-500 font-semibold border-b-2 border-orange-500 pb-1"
-      : "text-gray-700 hover:text-orange-500 transition";
-
+export default function Navbar({ ordersCount }) {
   return (
-    <nav className="bg-white shadow-md sticky top-0 z-50">
-      <div className="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
+    <nav className="bg-white shadow-md">
+      <div className="container mx-auto flex justify-between items-center py-4 px-6">
         {/* Logo */}
-        <Link to="/" className="text-2xl font-bold text-orange-500">
+        <Link to="/" className="text-2xl font-bold text-orange-600">
           SpiceBox
         </Link>
 
         {/* Links */}
-        <div className="flex space-x-6">
-          <NavLink to="/" className={linkClasses}>
+        <div className="space-x-6">
+          <Link
+            to="/"
+            className="text-gray-700 hover:text-orange-600 transition"
+          >
             Home
-          </NavLink>
-          <NavLink to="/discover" className={linkClasses}>
+          </Link>
+          <Link
+            to="/discover"
+            className="text-gray-700 hover:text-orange-600 transition"
+          >
             Discover
-          </NavLink>
-          <NavLink to="/about" className={linkClasses}>
-            About
-          </NavLink>
+          </Link>
+          <Link
+            to="/orders"
+            className="text-gray-700 hover:text-orange-600 transition"
+          >
+            Orders ({ordersCount})
+          </Link>
         </div>
       </div>
     </nav>
