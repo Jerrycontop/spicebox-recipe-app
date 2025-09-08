@@ -181,11 +181,20 @@ const Discover = ({ addToOrders }) => {
 
             {/* Order Now Button */}
             <button
-              onClick={() => addToOrders(recipe)}
-              className="mt-3 w-full bg-green-500 text-white py-2 rounded-lg hover:bg-green-600 transition"
-            >
-              Order Now
-            </button>
+  onClick={() =>
+    addToOrders({
+      id: recipe.idMeal,
+      name: recipe.strMeal,
+      image: recipe.strMealThumb,
+      price: Math.floor(Math.random() * 20) + 5, // fake price for now
+      status: "Preparing",
+    })
+  }
+  className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg shadow transition"
+>
+  Order Now
+</button>
+
           </div>
         ))}
       </div>
