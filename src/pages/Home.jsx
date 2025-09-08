@@ -26,8 +26,29 @@ const menuItems = [
 const Home = ({ addToOrders }) => {
   return (
     <div className="container mx-auto p-6">
-      <h2 className="text-3xl font-bold mb-6">Menu</h2>
+      {/* ✅ Hero / Banner Section */}
+      <section className="bg-orange-100 rounded-xl p-8 mb-10 flex flex-col md:flex-row items-center justify-between">
+        <div className="max-w-lg">
+          <h1 className="text-4xl font-bold text-orange-600 mb-4">
+            Discover Delicious Recipes 🍴
+          </h1>
+          <p className="text-gray-700 mb-6">
+            SpiceBox helps you explore meals from around the world and order
+            your favorites in just a click.
+          </p>
+          <button className="bg-orange-600 hover:bg-orange-700 text-white px-6 py-3 rounded-lg shadow transition">
+            Get Started
+          </button>
+        </div>
+        <img
+          src="https://www.themealdb.com/images/media/meals/llcbn01574260722.jpg"
+          alt="Delicious food"
+          className="w-64 h-64 object-cover rounded-xl mt-6 md:mt-0 shadow-lg"
+        />
+      </section>
 
+      {/* ✅ Menu Section */}
+      <h2 className="text-3xl font-bold mb-6 text-orange-600">Menu</h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
         {menuItems.map((item) => (
           <div

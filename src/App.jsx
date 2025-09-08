@@ -37,6 +37,7 @@ function App() {
   <Route path="/recipe/:id" element={<RecipeDetail />} />
   <Route path="/discover" element={<Discover />} />
   <Route path="/about" element={<AboutPage />} />
+  
 
   {/* Pass orders, cancelOrder, and setOrders to Orders page */}
   <Route
